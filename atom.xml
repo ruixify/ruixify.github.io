@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-04-03T09:40:59.543Z</updated>
+  <updated>2022-04-03T10:08:38.460Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>first</title>
+    <link href="http://example.com/2022/04/03/first/"/>
+    <id>http://example.com/2022/04/03/first/</id>
+    <published>2022-04-03T10:02:21.000Z</published>
+    <updated>2022-04-03T10:08:38.460Z</updated>
+    
+    <content type="html"><![CDATA[<p>#作为新时代的新青年！</p><span id="more"></span><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String agrs[])</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;#作为新时代的新青年！&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="练习" scheme="http://example.com/categories/%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="测试" scheme="http://example.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title></title>
