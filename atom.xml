@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>羊の博客</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2022-04-03T09:40:59.543Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>甤豨</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/04/03/hello/"/>
+    <id>http://example.com/2022/04/03/hello/</id>
+    <published>2022-04-03T09:40:59.543Z</published>
+    <updated>2022-04-03T09:40:59.543Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+</feed>
