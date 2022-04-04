@@ -3,14 +3,11 @@
   <entry>
     <title>(LeetCode744)寻找比目标字母大的最小字母</title>
     <url>/2022/04/04/first/</url>
-    <content><![CDATA[<font color=#B9BABB size=4 face="幼圆">
-这是我的第一遍博客文章，也是第一次尝试用这种方式来讲编程题，如有什么不好的地方还请多多包涵，之后我也会逐步完善博客网站的功能。
-<div></div><div></div><div></div><div></div><div></div>
-<h3>首先来康康题目</h3>
-题目链接：<a herf="https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/" style="text-decoration: none;">https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/</a>
-</font>
-
-<span id="more"></span>]]></content>
+    <content><![CDATA[<p>这是我的第一遍博客文章，也是第一次尝试用这种方式来讲编程题，如有什么不好的地方还请多多包涵，之后我也会逐步完善博客网站的功能。<br><span id="more"></span></p>
+<p><p></p></p>
+<p><h3>首先来康康题目</h3><br>题目链接：<u><a href="https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/">https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/</a></u></p>
+<p><p><p><br>  给你一个排序后的字符列表 letters ，列表中只包含小写英文字母。另给出一个目标字母 target，请你寻找在这一有序列表里比目标字母大的最小字母。</p>
+]]></content>
       <categories>
         <category>每日一练</category>
       </categories>
