@@ -4,9 +4,32 @@
     <title>(LeetCode744)寻找比目标字母大的最小字母</title>
     <url>/2022/04/04/first/</url>
     <content><![CDATA[<p>这是我的第一遍博客文章，也是第一次尝试用这种方式来讲编程题，如有什么不好的地方还请多多包涵，之后我也会逐步完善博客网站的功能。<br><span id="more"></span></p>
-<p><p></p></p>
-<p><h3>首先来康康题目</h3><br>题目链接：<u><a href="https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/">https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/</a></u></p>
-<p><p><p><br>  给你一个排序后的字符列表 letters ，列表中只包含小写英文字母。另给出一个目标字母 target，请你寻找在这一有序列表里比目标字母大的最小字母。</p>
+<h3 id="首先来康康题目"><a href="#首先来康康题目" class="headerlink" title="首先来康康题目"></a>首先来康康题目</h3>  <div class="note info"><p>给你一个排序后的字符列表 <span style="background-color:#D5D5D5">letters</span> ，列表中只包含小写英文字母。另给出一个目标字母 <span style="background-color:#D5D5D5">target</span>，请你寻找在这一有序列表里比目标字母大的最小字母。</p>
+<p>  在比较时，字母是依序循环出现的。举个例子：</p>
+<ul>
+<li>如果目标字母 <span style="background-color:#D5D5D5">target = ‘z’</span> 并且字符列表为 <span style="background-color:#D5D5D5">letters = [‘a’, ‘b’]</span> ，则答案返回 <span style="background-color:#D5D5D5">‘a’</span></li>
+<li>示例：<pre><code>&gt;输入：letters = [&quot;c&quot;, &quot;f&quot;, &quot;j&quot;]，target = &quot;a&quot;
+&gt;输出: &quot;c&quot;
+</code></pre></li>
+</ul>
+</div>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ol>
+<li><h4 id="暴力解决"><a href="#暴力解决" class="headerlink" title="暴力解决"></a>暴力解决</h4><p> 看完题目之后最先想到也是最容易想到的就是暴力算法解决。</p>
+<h5 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h5><ol>
+<li>首先可以先判断 target 是不是 ‘z’ ，如果是，则可以直接返回 letters[ 0 ] ,因为所有的字                       母中没有比字母 ‘z’ 还要大的字母了，再者考虑到letters数组是有序的，所以答案就是                         letters[ 0 ]。 </li>
+<li>下标 i 从 0 开始,letters[ i ]依次与 target 进行比较，如果 letters[ i ]比 target 要小或者等于就继续循环，只要letters[ i ]比 target 要大，就可以直接return。</li>
+<li>还需要特殊考虑的是类似于字母 ‘z’ 的情况，即 target 已经比完了 letters 中所有的元素依然没有找到比 target 大的，此时还是直接返回 letters[ 0 ]。<h6 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h6><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">char</span> <span class="title function_">nextGreatestLetter</span><span class="params">(<span class="type">char</span>[] letters, <span class="type">char</span> target)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(target==<span class="string">&#x27;z&#x27;</span>) &#123;</span><br><span class="line">        	<span class="keyword">return</span> letters[<span class="number">0</span>];</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=letters.length;i++) &#123;</span><br><span class="line">        		<span class="keyword">if</span>(i==letters.length) &#123;</span><br><span class="line">        			<span class="keyword">return</span> letters[<span class="number">0</span>];</span><br><span class="line">        		&#125;</span><br><span class="line">        		<span class="keyword">if</span>(target-letters[i]&gt;=<span class="number">0</span>) &#123;</span><br><span class="line">        			<span class="keyword">continue</span>;</span><br><span class="line">        		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        			<span class="keyword">return</span> letters[i];</span><br><span class="line">        		&#125;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h5>显然，暴力解决的时间复杂度是 $ O(n) $,空间复杂度是 $ O(1) $。这没有什么困难的地方。<h5 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h5></li>
+</ol>
+</li>
+<li><h4 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h4><p>暴力算法写完之后对于题目有了一个新的理解，首先对于 letters 数组来说，它是有序的，如此有利的条件不用岂不是浪费。那么如何利用呢？没错，二分查找。</p>
+<h5 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h5><ol>
+<li>同样，首先可以先判断 target 与最后一个字母的大小，如果 target 大，那么就可以直接返回 letters[ 0 ]。</li>
+<li>另外的情况就是在数组中了，就可以利用二分法找到这个最小字母，提高时间效率。具体实现呢就是初始时，二分查找的范围是整个列表的下标范围。每次比较当前下标处的字母和目标字母，如果当前下标处的字母大于目标字母，则在当前下标以及当前下标的左侧继续查找，否则在当前下标的右侧继续查找。 <h6 id="代码：-1"><a href="#代码：-1" class="headerlink" title="代码："></a>代码：</h6><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">char</span> <span class="title function_">nextGreatestLetter</span><span class="params">(<span class="type">char</span>[] letters, <span class="type">char</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> len=letters.length-<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> heigh=len,low=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(target&gt;=letters[heigh]) &#123;</span><br><span class="line">        	<span class="keyword">return</span> letters[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> mid=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(low&lt;heigh) &#123;</span><br><span class="line">        	mid=low+(heigh-low)/<span class="number">2</span>;</span><br><span class="line">        	<span class="keyword">if</span>(letters[mid]&gt;target) &#123;</span><br><span class="line">        		heigh=mid;</span><br><span class="line">        	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        		low=mid+<span class="number">1</span>;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> letters[low];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5>对于二分查找来说，时间复杂度一定是和 $ log(n) $有关的。显然，这里的时间复杂度是 $ O(log n) $的，空间复杂度还是$O(1)$，没变。<h5 id="结果：-1"><a href="#结果：-1" class="headerlink" title="结果："></a>结果：</h5><img src="/2022/04/04/first/images/leetcode/_4_3/暴力.png"><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3>这是第一篇博客，所以在写博客之前，包括在写博客的过程中都花了比较多的时间去了解和学习，同时正好leetcode的今天也是个<span style="background-color:#D5D5D5">“简单”</span>题，还是比较游刃有余的，😁。而就题目来说，简单的很了，两种方法都很好想，也算是常规题，不过也算是锻炼基本功了。</li>
+</ol>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>每日一练</category>
