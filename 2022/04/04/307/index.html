@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/%E5%B0%8F%E7%BE%8A%E7%BE%8A%20(1).png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/%E5%B0%8F%E7%BE%8A%E7%BE%8A.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ruixify.top","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="又是元气满满的一天！（颓废😶）   题目链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;range-sum-query-mutable&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(LeetCode307)区域和检索 - 数组可修改">
+<meta property="og:url" content="http://ruixify.top/2022/04/04/307/index.html">
+<meta property="og:site_name" content="羊の博客">
+<meta property="og:description" content="又是元气满满的一天！（颓废😶）   题目链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;range-sum-query-mutable&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ruixify.top/2022/04/04/307/1_1.png">
+<meta property="og:image" content="http://ruixify.top/2022/04/04/307/1_2.png">
+<meta property="og:image" content="http://ruixify.top/2022/04/04/307/1_3.png">
+<meta property="og:image" content="http://ruixify.top/2022/04/04/307/1_4.png">
+<meta property="og:image" content="http://ruixify.top/2022/04/04/307/1_tree.png">
+<meta property="og:image" content="http://ruixify.top/2022/04/04/307/2.png">
+<meta property="og:image" content="http://ruixify.top/2022/04/04/307/3.png">
+<meta property="og:image" content="http://ruixify.top/2022/04/04/307/线段树.png">
+<meta property="og:image" content="http://ruixify.top/2022/04/04/307/分块.png">
+<meta property="article:published_time" content="2022-04-04T14:22:32.000Z">
+<meta property="article:modified_time" content="2022-04-05T04:11:02.262Z">
+<meta property="article:author" content="甤豨">
+<meta property="article:tag" content="线段树">
+<meta property="article:tag" content="中等">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ruixify.top/2022/04/04/307/1_1.png">
+
+
+<link rel="canonical" href="http://ruixify.top/2022/04/04/307/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ruixify.top/2022/04/04/307/","path":"2022/04/04/307/","title":"(LeetCode307)区域和检索 - 数组可修改"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>(LeetCode307)区域和检索 - 数组可修改 | 羊の博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="羊の博客" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊の博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  
+  <aside class="sidebar">
+
+    
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A6%96%E5%85%88%E7%9C%8B%E9%A2%98%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">首先看题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91"><span class="nav-number">2.1.</span> <span class="nav-text">线段树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E6%80%9D%E8%B7%AF"><span class="nav-number">2.1.1.</span> <span class="nav-text">线段树思路</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E6%A0%91"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">建树</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="nav-number">2.1.1.1.1.</span> <span class="nav-text">代码：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E7%BB%99%E5%AE%9A%E7%B4%A2%E5%BC%95%E5%A4%84%E7%9A%84%E5%80%BC"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">更新给定索引处的值</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A-1"><span class="nav-number">2.1.1.2.1.</span> <span class="nav-text">代码：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82%E7%89%B9%E5%AE%9A%E5%8C%BA%E9%97%B4%E5%86%85%E5%85%83%E7%B4%A0%E7%9A%84%E5%92%8C"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">求特定区间内元素的和</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A-2"><span class="nav-number">2.1.1.3.1.</span> <span class="nav-text">代码：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E6%80%BB%E7%BB%93"><span class="nav-number">2.1.1.4.</span> <span class="nav-text">线段树总结</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A-3"><span class="nav-number">2.1.1.4.1.</span> <span class="nav-text">代码：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E6%9E%90%EF%BC%9A"><span class="nav-number">2.1.1.4.2.</span> <span class="nav-text">分析：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="nav-number">2.1.1.4.3.</span> <span class="nav-text">结果：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%9D%97%E5%A4%84%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">分块处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A-4"><span class="nav-number">2.2.1.</span> <span class="nav-text">代码：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          
+        </div>
+        <!--/noindex-->
+        
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="甤豨"
+      src="/images/cat.png">
+  <p class="site-author-name" itemprop="name">甤豨</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div id="binft"></div>
+  <script>
+    var binft = function (r) {
+      function t() {
+        return b[Math.floor(Math.random() * b.length)]
+      }  
+      function e() {
+        return String.fromCharCode(94 * Math.random() + 33)
+      }
+      function n(r) {
+        for (var n = document.createDocumentFragment(), i = 0; r > i; i++) {
+          var l = document.createElement("span");
+          l.textContent = e(), l.style.color = t(), n.appendChild(l)
+        }
+        return n
+      }
+      function i() {
+        var t = o[c.skillI];
+        c.step ? c.step-- : (c.step = g, c.prefixP < l.length ? (c.prefixP >= 0 && (c.text += l[c.prefixP]), c.prefixP++) : "forward" === c.direction ? c.skillP < t.length ? (c.text += t[c.skillP], c.skillP++) : c.delay ? c.delay-- : (c.direction = "backward", c.delay = a) : c.skillP > 0 ? (c.text = c.text.slice(0, -1), c.skillP--) : (c.skillI = (c.skillI + 1) % o.length, c.direction = "forward")), r.textContent = c.text, r.appendChild(n(c.prefixP < l.length ? Math.min(s, s + c.prefixP) : Math.min(s, t.length - c.skillP))), setTimeout(i, d)
+      }
+      var l = "",
+      o = ["青青陵上柏，磊磊涧中石。", "人生天地间，忽如远行客。","斗酒相娱乐，聊厚不为薄。", "驱车策驽马，游戏宛与洛。","洛中何郁郁，冠带自相索。","长衢罗夹巷，王侯多第宅。","两宫遥相望，双阙百余尺。","极宴娱心意，戚戚何所迫？"].map(function (r) {
+      return r + ""
+      }),
+      a = 2,
+      g = 1,
+      s = 5,
+      d = 75,
+      b = ["rgb(110,64,170)", "rgb(150,61,179)", "rgb(191,60,175)", "rgb(228,65,157)", "rgb(254,75,131)", "rgb(255,94,99)", "rgb(255,120,71)", "rgb(251,150,51)", "rgb(226,183,47)", "rgb(198,214,60)", "rgb(175,240,91)", "rgb(127,246,88)", "rgb(82,246,103)", "rgb(48,239,130)", "rgb(29,223,163)", "rgb(26,199,194)", "rgb(35,171,216)", "rgb(54,140,225)", "rgb(76,110,219)", "rgb(96,84,200)"],
+      c = {
+        text: "",
+        prefixP: -s,
+        skillI: 0,
+        skillP: 0,
+        direction: "forward",
+        delay: a,
+        step: g
+      };
+      i()
+      };
+      binft(document.getElementById('binft'));
+  </script>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="/1492298957@qq.com" title="E-Mail → 1492298957@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+      <div id="">
+<canvas id="canvas" style="width:60%;">
+</div>
+<script type="text/javascript" src="/js/canvas-dance-time.js"></script>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+  
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ruixify.top/2022/04/04/307/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.png">
+      <meta itemprop="name" content="甤豨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊の博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="(LeetCode307)区域和检索 - 数组可修改 | 羊の博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          (LeetCode307)区域和检索 - 数组可修改
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-04 22:22:32" itemprop="dateCreated datePublished" datetime="2022-04-04T22:22:32+08:00">2022-04-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-05 12:11:02" itemprop="dateModified" datetime="2022-04-05T12:11:02+08:00">2022-04-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83/" itemprop="url" rel="index"><span itemprop="name">每日一练</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>   又是元气满满的一天！（颓废😶）<br>   题目链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/range-sum-query-mutable/">https://leetcode-cn.com/problems/range-sum-query-mutable/</a><br><span id="more"></span></p>
+<h2 id="首先看题目"><a href="#首先看题目" class="headerlink" title="首先看题目"></a>首先看题目</h2>   <div class="note info"><p>   给你一个数组 <strong>nums</strong> ，请你完成两类查询。</p>
+<ol>
+<li>其中一类查询要求 更新 数组 <strong>nums</strong> 下标对应的值。</li>
+<li><p>另一类查询要求返回数组<strong> nums</strong> 中索引<strong> left</strong> 和索引 <strong>right</strong> 之间<strong>（ 包含 ）</strong>的<strong>nums</strong>元素的 和 ，其中 <strong>left &lt;= right</strong>。</p>
+<p>实现 NumArray 类：</p>
+</li>
+</ol>
+<ul>
+<li><strong>NumArray(int[] nums)</strong> 用整数数组 <strong>nums</strong> 初始化对象</li>
+<li><strong>void update(int index, int val)</strong> 将 <strong>nums[index]</strong> 的值 更新 为 <strong>val</strong></li>
+<li><strong>int sumRange(int left, int right)</strong> 返回数组 <strong>nums</strong> 中索引 <strong>left</strong> 和索引 <strong>right</strong> 之间<strong>（ 包含 ）</strong>的<strong>nums</strong>元素的 和 （即，<strong>nums[left] + nums[left + 1], …, nums[right]</strong>）。</li>
+</ul>
+<p>示例：</p>
+<pre><code>&gt;输入：
+&gt; [&quot;NumArray&quot;, &quot;sumRange&quot;, &quot;update&quot;, &quot;sumRange&quot;]
+&gt; [[[1, 3, 5]], [0, 2], [1, 2], [0, 2]]
+&gt; 输出：
+&gt; [null, 9, null, 8]
+</code></pre></div>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ol>
+<li><h3 id="线段树"><a href="#线段树" class="headerlink" title="线段树"></a>线段树</h3> 线段树我也是第一次接触，也是通过这道题学习了线段树的使用环境，具体的实现和JAVA的代码（详情可以见B站 <strong>BV1cb411t7AM</strong>，灯神讲的还是十分的通俗易懂的）。就我自己的理解，线段树实际上就是“线段”和“树”。“线段”就是数组的从一索引处到另一个索引处，就像线段的两个端点。“树”就是众所周知的树的数据结构。而线段树就是利用树的数据结构将数组的线段特征表示出来，从树的叶子节点到根节点，节点的值是线段内元素的和，线段的长度不断增长，直到长度为整个数组的长度。<h4 id="线段树思路"><a href="#线段树思路" class="headerlink" title="线段树思路"></a>线段树思路</h4><ol>
+<li><h5 id="建树"><a href="#建树" class="headerlink" title="建树"></a>建树</h5> 需要注意的是这里的树是通过数组的方式存储的。<br> 这里的初始数组我们设为<strong>int[] arr</strong>，为了解释清楚，我们初始数据少一点<strong>{1，3，5，7，9}</strong>，长度<strong>lenght</strong>是 5 。需要建立的树数组为<strong>int[] tree</strong>。<br> 开始建树，树的根节点是<strong>0~4</strong>线段内元素的和，也就是 25 。<br><img src="/2022/04/04/307/1_1.png" alt><br>然后将线段<strong>0~4</strong>截断，方法是通过中间值<strong>mid</strong>类似于二分，<strong>mid=start+(end-start)/2</strong>（start是线段的左索引，end是线段的右索引）。然后计算线段范围内个元素的总和，<strong>0~2</strong>内是<strong>9</strong>，<strong>3~4</strong>范围内是16。<br><img src="/2022/04/04/307/1_2.png" alt><br>就这样一直下去。<br> <img src="/2022/04/04/307/1_3.png" alt><br> 接下来就是<strong>tree</strong>数组了，为了将树结构保存在数组中，我们需要将上述的树结构虚拟一些节点，使之成为完全二叉树。<br> <img src="/2022/04/04/307/1_4.png" alt><br> <img src="/2022/04/04/307/1_tree.png" alt><br> 代码实现呢，需要反着来，过程就像<strong>后序遍历</strong>，从数组的全长<strong>0~4</strong>开始（即从根节点开始），判断线段中是否仅存在一个元素了（即是否是叶子节点，判断条件为<strong>start==end</strong>就是说左右端点在同一个地方，不就是一个点了嘛就是一个元素了），判断为否，则截断，依次递归左区间和右区间（即递归左右子树），递归返回到父节点时，父节点的值为左右子树值的和。若判断为是，return。<h6 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init_tree</span><span class="params">(<span class="type">int</span>[] nums,<span class="type">int</span>[] tree,<span class="type">int</span> node,<span class="type">int</span> start,<span class="type">int</span> end)</span> </span><br><span class="line">&#123;<span class="comment">//初始化线段树</span></span><br><span class="line">    	</span><br><span class="line">    <span class="keyword">if</span>(start==end) &#123;</span><br><span class="line">   		tree[node]=nums[end];</span><br><span class="line">   		<span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   	</span><br><span class="line">   <span class="type">int</span> mid=start+(end-start)/<span class="number">2</span>;<span class="comment">//找到 中间值对树进行分割，递归调用</span></span><br><span class="line">   <span class="type">int</span> left_node=<span class="number">2</span>*node+<span class="number">1</span>;<span class="comment">//tree中node的左子树索引</span></span><br><span class="line">   <span class="type">int</span> right_node=<span class="number">2</span>*node+<span class="number">2</span>;<span class="comment">//tree中node的右子树索引</span></span><br><span class="line">    	</span><br><span class="line">   <span class="comment">//利用类似于后序遍历的方式进行节点的赋值</span></span><br><span class="line">   init_tree(nums, tree, left_node, start, mid);<span class="comment">//对左子树进行遍历</span></span><br><span class="line">   init_tree(nums, tree, right_node, mid+<span class="number">1</span>, end);<span class="comment">//对右子树进行遍历</span></span><br><span class="line">   tree[node]=tree[left_node]+tree[right_node];<span class="comment">//对左右子树的父节点赋值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><h5 id="更新给定索引处的值"><a href="#更新给定索引处的值" class="headerlink" title="更新给定索引处的值"></a>更新给定索引处的值</h5><p>对于数组<strong>nums</strong>来说可以直接<strong>nums[ index ]=val</strong>即可，但在更新之后数组<strong>tree</strong>也需要进行更新，这样才能保持同步。<br>而<strong>tree</strong>的更新方式类似于二分查找的步骤。更新索引<strong>index</strong>和<strong>mid</strong>进行比较，若<strong>index&gt;=start&amp;&amp;index&lt;=mid</strong>，则<strong>end=mid</strong>去左区间找；若<strong>index&gt;mid&amp;&amp;index&lt;=end</strong>，则<strong>start=mid+1</strong>去右区间找，直到<strong>start==end</strong>说明找到了，更新tree在该索引的值，返回，更新各个父节点的值。<br><img src="/2022/04/04/307/2.png" alt></p>
+<h6 id="代码：-1"><a href="#代码：-1" class="headerlink" title="代码："></a>代码：</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update_tree</span><span class="params">(<span class="type">int</span>[] nums,<span class="type">int</span>[] tree,<span class="type">int</span> node,</span></span><br><span class="line"><span class="params">                        <span class="type">int</span> start,<span class="type">int</span> end,<span class="type">int</span> index,<span class="type">int</span> val)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(start==end) &#123;<span class="comment">//当此区间内只有一个值值的时候</span></span><br><span class="line">    	tree[node]=val;<span class="comment">//更新</span></span><br><span class="line">    	nums[start]=val;</span><br><span class="line">    	<span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    	</span><br><span class="line">    <span class="type">int</span> mid=start+(end-start)/<span class="number">2</span>;<span class="comment">//利用中间值判断index的位置从而进行左右分支</span></span><br><span class="line">    <span class="type">int</span> left_node=<span class="number">2</span>*node+<span class="number">1</span>;<span class="comment">//左子树的索引</span></span><br><span class="line">    <span class="type">int</span> right_node=<span class="number">2</span>*node+<span class="number">2</span>;<span class="comment">//右子树的索引</span></span><br><span class="line">    <span class="keyword">if</span>(index&gt;mid&amp;&amp;index&lt;=end) &#123;<span class="comment">//如果index在左区间内</span></span><br><span class="line">    	update_tree(nums, tree, right_node, mid+<span class="number">1</span>, end, index, val);</span><br><span class="line">    	<span class="comment">//对左子树进行更新</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;<span class="comment">//index在有区间内</span></span><br><span class="line">    	update_tree(nums, tree, left_node, start, mid, index, val);</span><br><span class="line">    	<span class="comment">//对右子树进行更新</span></span><br><span class="line">    &#125;</span><br><span class="line">    	</span><br><span class="line">    tree[node]=tree[left_node]+tree[right_node];<span class="comment">//对父节点重新赋值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><h5 id="求特定区间内元素的和"><a href="#求特定区间内元素的和" class="headerlink" title="求特定区间内元素的和"></a>求特定区间内元素的和</h5><p>特定区间设为（L,R），因为<strong>数组tree</strong>已经记录了某些区间的元素的总和，那么只要把特定区间拆分为tree数组有的区间有的即可，换句话说，<strong>tree节点的表示区间是（L,R）的子集的时候，就可以直接返回该tree节点的值</strong>，如此可以降低时间复杂度。但是如果（L,R）与节点表示区间交集是空集，那么要直接返回0；如果tree已经到了叶子节点，也直接返回。<br><img src="/2022/04/04/307/3.png" alt><br>所以再计算所有返回的值，即 $ 0+4+5+16=25 $</p>
+<h6 id="代码：-2"><a href="#代码：-2" class="headerlink" title="代码："></a>代码：</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sum_tree</span><span class="params">(<span class="type">int</span>[] tree,<span class="type">int</span> node,<span class="type">int</span> start,<span class="type">int</span> end,<span class="type">int</span> L,<span class="type">int</span> R)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(start&gt;=L&amp;&amp;end&lt;=R) &#123;</span><br><span class="line">    <span class="comment">//要求和的区间是待定区间的子集可以直接返回当前的tree[node]</span></span><br><span class="line">    	<span class="keyword">return</span> tree[node];</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    	<span class="keyword">if</span>(end&lt;L||start&gt;R) &#123;<span class="comment">//如果待定区间内不包含求和区间就直接返回0</span></span><br><span class="line">    	    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    	</span><br><span class="line">    <span class="type">int</span> mid=start+(end-start)/<span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> left_node=<span class="number">2</span>*node+<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> right_node=<span class="number">2</span>*node+<span class="number">2</span>;</span><br><span class="line">    	</span><br><span class="line">    <span class="type">int</span> left_sum=sum_tree(nums, tree, left_node, start, mid, L, R);</span><br><span class="line">    <span class="type">int</span> right_sum=sum_tree(nums, tree, right_node, mid+<span class="number">1</span>, end, L, R);</span><br><span class="line">    	</span><br><span class="line">    <span class="keyword">return</span> left_sum+right_sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><h5 id="线段树总结"><a href="#线段树总结" class="headerlink" title="线段树总结"></a>线段树总结</h5><p>线段树要理解通透还是需要不断地去画图和理解地，尤其是递归过程是如何跳转地也是比较头疼的事情，多看几遍，多写几遍，多理解。<br>最后，线段树地题解代码：</p>
+<h6 id="代码：-3"><a href="#代码：-3" class="headerlink" title="代码："></a>代码：</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NumArray</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> nums[]=<span class="literal">null</span>;</span><br><span class="line">	<span class="type">int</span> tree[]=<span class="literal">null</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NumArray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    	<span class="keyword">if</span>(nums==<span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    	<span class="comment">//nums有可能是空要注意！</span></span><br><span class="line">    	<span class="built_in">this</span>.nums=nums;</span><br><span class="line">    	tree=<span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">4</span>*nums.length];</span><br><span class="line">    	init_tree(<span class="built_in">this</span>.nums, tree, <span class="number">0</span>, <span class="number">0</span>, <span class="built_in">this</span>.nums.length-<span class="number">1</span>);</span><br><span class="line">    	<span class="comment">//初始化tree</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">(<span class="type">int</span> index, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">    	update_tree(<span class="built_in">this</span>.nums, <span class="built_in">this</span>.tree, <span class="number">0</span>, <span class="number">0</span>, <span class="built_in">this</span>.nums.length-<span class="number">1</span>, index, val);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sumRange</span><span class="params">(<span class="type">int</span> left, <span class="type">int</span> right)</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> sum_tree(<span class="built_in">this</span>.nums, <span class="built_in">this</span>.tree, <span class="number">0</span>, <span class="number">0</span>, <span class="built_in">this</span>.nums.length-<span class="number">1</span>, left, right);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init_tree</span><span class="params">(<span class="type">int</span>[] nums,<span class="type">int</span>[] tree,<span class="type">int</span> node,<span class="type">int</span> start,<span class="type">int</span> end)</span> </span><br><span class="line">    &#123;<span class="comment">//初始化线段树</span></span><br><span class="line">    	</span><br><span class="line">    	<span class="keyword">if</span>(start==end) &#123;</span><br><span class="line">    		tree[node]=nums[end];</span><br><span class="line">    		<span class="keyword">return</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	<span class="type">int</span> mid=start+(end-start)/<span class="number">2</span>;<span class="comment">//找到 中间值对树进行分割，递归调用</span></span><br><span class="line">    	<span class="type">int</span> left_node=<span class="number">2</span>*node+<span class="number">1</span>;<span class="comment">//tree中node的左子树索引</span></span><br><span class="line">    	<span class="type">int</span> right_node=<span class="number">2</span>*node+<span class="number">2</span>;<span class="comment">//tree中node的右子树索引</span></span><br><span class="line">    	</span><br><span class="line">    	<span class="comment">//利用类似于后序遍历的方式进行节点的赋值</span></span><br><span class="line">    	init_tree(nums, tree, left_node, start, mid);<span class="comment">//对左子树进行遍历</span></span><br><span class="line">    	init_tree(nums, tree, right_node, mid+<span class="number">1</span>, end);<span class="comment">//对右子树进行遍历</span></span><br><span class="line">    	tree[node]=tree[left_node]+tree[right_node];<span class="comment">//对左右子树的父节点赋值</span></span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update_tree</span><span class="params">(<span class="type">int</span>[] nums,<span class="type">int</span>[] tree,<span class="type">int</span> node,<span class="type">int</span> start,</span></span><br><span class="line"><span class="params">                            <span class="type">int</span> end,<span class="type">int</span> index,<span class="type">int</span> val)</span> &#123;<span class="comment">//更行tree数组</span></span><br><span class="line">    	</span><br><span class="line">    	<span class="keyword">if</span>(start==end) &#123;<span class="comment">//当此区间内只有一个值值的时候</span></span><br><span class="line">    		tree[node]=val;<span class="comment">//更新</span></span><br><span class="line">    		nums[start]=val;</span><br><span class="line">    		<span class="keyword">return</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	<span class="type">int</span> mid=start+(end-start)/<span class="number">2</span>;<span class="comment">//利用中间值判断index的位置从而进行左右分支</span></span><br><span class="line">    	<span class="type">int</span> left_node=<span class="number">2</span>*node+<span class="number">1</span>;<span class="comment">//左子树的索引</span></span><br><span class="line">    	<span class="type">int</span> right_node=<span class="number">2</span>*node+<span class="number">2</span>;<span class="comment">//右子树的索引</span></span><br><span class="line">    	<span class="keyword">if</span>(index&gt;mid&amp;&amp;index&lt;=end) &#123;<span class="comment">//如果index在左区间内</span></span><br><span class="line">    		update_tree(nums, tree, right_node, mid+<span class="number">1</span>, end, index, val);</span><br><span class="line">    		<span class="comment">//对左子树进行更新</span></span><br><span class="line">    	&#125;<span class="keyword">else</span> &#123;<span class="comment">//index在有区间内</span></span><br><span class="line">    		update_tree(nums, tree, left_node, start, mid, index, val);</span><br><span class="line">    		<span class="comment">//对右子树进行更新</span></span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	tree[node]=tree[left_node]+tree[right_node];<span class="comment">//对父节点重新赋值</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sum_tree</span><span class="params">(<span class="type">int</span>[] nums,<span class="type">int</span>[] tree,<span class="type">int</span> node,<span class="type">int</span> start,</span></span><br><span class="line"><span class="params">                        <span class="type">int</span> end,<span class="type">int</span> L,<span class="type">int</span> R)</span> &#123;</span><br><span class="line">    	</span><br><span class="line">    	<span class="keyword">if</span>(start&gt;=L&amp;&amp;end&lt;=R) &#123;</span><br><span class="line">    	<span class="comment">//要求和的区间是待定区间的子集可以直接返回当前的tree[node]</span></span><br><span class="line">    		<span class="keyword">return</span> tree[node];</span><br><span class="line">    	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    		<span class="keyword">if</span>(end&lt;L||start&gt;R) &#123;<span class="comment">//如果待定区间内不包含求和区间就直接返回0</span></span><br><span class="line">    			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	<span class="type">int</span> mid=start+(end-start)/<span class="number">2</span>;</span><br><span class="line">    	<span class="type">int</span> left_node=<span class="number">2</span>*node+<span class="number">1</span>;</span><br><span class="line">    	<span class="type">int</span> right_node=<span class="number">2</span>*node+<span class="number">2</span>;</span><br><span class="line">    	</span><br><span class="line">    	<span class="type">int</span> left_sum=sum_tree(nums, tree, left_node, start, mid, L, R);</span><br><span class="line">    	<span class="type">int</span> right_sum=sum_tree(nums, tree, right_node, mid+<span class="number">1</span>, end, L, R);</span><br><span class="line">    	</span><br><span class="line">    	<span class="keyword">return</span> left_sum+right_sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h6><p>时间复杂度：</p>
+</li>
+</ol>
+<ul>
+<li>构造函数：$O(n)$，其中 n 是数组 nums 的大小。二叉树的高度不超过 $\lceil \log n \rceil + 1⌈logn⌉+1$，那么 tree 的大小不超过$ 2 ^ {\lceil \log n \rceil + 1} - 1 \le 4n$，所以 build 的时间复杂度为$ O(n)$。</li>
+<li>update_tree 函数：$O(log n)$。因为树的高度不超过 $\lceil \log n \rceil + 1$，所以涉及更新的结点数不超过$ \lceil \log n \rceil + 1$</li>
+<li>sum_tree 函数：$O(logn)$。每层结点最多访问四个，总共访问的结点数不超过$ 4 \times (\lceil \log n \rceil + 1)$。<br> 空间复杂度：<br> $O(n)$。保存 tree 需要 $O(n)$ 的空间。</li>
+</ul>
+<h6 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h6><p><img src="/2022/04/04/307/线段树.png" alt></p>
+<ol>
+<li><h3 id="分块处理"><a href="#分块处理" class="headerlink" title="分块处理"></a>分块处理</h3>LeetCode官方还给了一种解法是<strong>分块处理</strong>，原理是将数组分成固定长的几个小块，因为就更新特定索引的值来说，时间复杂度的$O(1)$，而求和时间复杂度是明显的高了，对于大量数据来说，而分块处理的求和函数的数学逻辑较强，不像线段树，多看几遍就能差不多理解的。<br><img src="/2022/04/04/307/分块.png" alt><br>我也给上官方的代码：<h4 id="代码：-4"><a href="#代码：-4" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NumArray</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] sum; <span class="comment">// sum[i] 表示第 i 个块的元素和</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> size; <span class="comment">// 块的大小</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] nums;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NumArray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.nums = nums;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.length;</span><br><span class="line">        size = (<span class="type">int</span>) Math.sqrt(n);</span><br><span class="line">        sum = <span class="keyword">new</span> <span class="title class_">int</span>[(n + size - <span class="number">1</span>) / size]; <span class="comment">// n/size 向上取整</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            sum[i / size] += nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">(<span class="type">int</span> index, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        sum[index / size] += val - nums[index];</span><br><span class="line">        nums[index] = val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sumRange</span><span class="params">(<span class="type">int</span> left, <span class="type">int</span> right)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">b1</span> <span class="operator">=</span> left / size, i1 = left % size, b2 = right / size, i2 = right % size;</span><br><span class="line">        <span class="keyword">if</span> (b1 == b2) &#123; <span class="comment">// 区间 [left, right] 在同一块中</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i1; j &lt;= i2; j++) &#123;</span><br><span class="line">                sum += nums[b1 * size + j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> sum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sum1</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i1; j &lt; size; j++) &#123;</span><br><span class="line">            sum1 += nums[b1 * size + j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sum2</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt;= i2; j++) &#123;</span><br><span class="line">            sum2 += nums[b2 * size + j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sum3</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> b1 + <span class="number">1</span>; j &lt; b2; j++) &#123;</span><br><span class="line">            sum3 += sum[j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum1 + sum2 + sum3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/range-sum-query-mutable/solution/qu-yu-he-jian-suo-shu-zu-ke-xiu-gai-by-l-76xj/">https://leetcode-cn.com/problems/range-sum-query-mutable/solution/qu-yu-he-jian-suo-shu-zu-ke-xiu-gai-by-l-76xj/</a></li>
+<li><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>中等题，花点时间还是可以解决的，最主要的是通过这题了解了线段树的数据结构，又变强了呢，<strong>Fighting！！</strong>😜。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+
+
+  
+</div>
+
+
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>甤豨
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://ruixify.top/2022/04/04/307/" title="(LeetCode307)区域和检索 - 数组可修改">http://ruixify.top/2022/04/04/307/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/%E4%B8%AD%E7%AD%89/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/04/744/" rel="prev" title="(LeetCode744)寻找比目标字母大的最小字母">
+                  <i class="fa fa-chevron-left"></i> (LeetCode744)寻找比目标字母大的最小字母
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">甤豨</span>
+  <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referra"><img src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN/又拍云_logo.png"align="absmiddle" width="59px" height="30px" /></a>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">11k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">10 分钟</span>
+  </span>
+</div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+--><script color="255,255,255" opacity="1" zIndex="-1" count="150" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+  
+  
+
+</body>
+</html>
